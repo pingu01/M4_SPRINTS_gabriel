@@ -1,11 +1,23 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
 // 1 -  Faça uma função que recebe uma certa medida e ajusta ela percentualmente 
 // entre dois valores mínimo e máximo e retorna esse valor
 
+int converteSensor(int medida,int minimo,int maximo){
+	return float((medida-minimo))/float((maximo-minimo))*100;
+}
+
+
 // 2 - Faça uma função que simule a leitura de um sensor lendo o 
 // valor do teclado ao final a função retorna este valor
+
+int leComando() {
+	int comando;
+	cin >> comando;
+	return comando;
+}
 
 // 3 - Faça uma função que armazena uma medida inteira qualquer 
 // em um vetor fornecido. Note que como C não possui vetores 
@@ -14,7 +26,12 @@
 // Evite também que, por acidente, um valor seja escrito em 
 // uma área de memória fora do vetor
 
+int armazenaMedida(int novo_valor, int ultimo_valor, int *v, int tamanho){
+	int *array = v;
+	array[ultimo_valor] = novo_valor;
+	return ultimo_valor + 1; 
 
+}
 
 // 4 - Faça uma função que recebe um vetor com 4 posições que contém 
 // o valor da distância de um pequeno robô até cada um dos seus 4 lados.
@@ -54,7 +71,7 @@ int dirige(int *v,int maxv){
 		posAtualVetor = // Chame a função para armazenar a medida no vetor
         ///////////////////////////////////////////////////////////////////////////		
 		// Repita as chamadas acima para a "Esquerda", "Frente", "Tras"
-		// ................
+		// .............................................................
 		///////////////////////////////////////////////////////////////////////////
 		dirigindo = leComando();		
 	}
