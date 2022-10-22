@@ -15,6 +15,7 @@ int converteSensor(int medida,int minimo,int maximo){
 
 int leSensor() {
 	int comando;
+	cout << "Digite a distancia: ";
 	cin >> comando;
 	return comando;
 }
@@ -39,8 +40,8 @@ int armazenaMedida(int novo_valor, int ultimo_valor, int *v, int tamanho){
 // de maior distância ("Direita", "Esquerda", "Frente", "Tras") e a 
 // segunda é esta maior distância.
 
-const char* direcaoMenorCaminho(int *array, int *valor_max){
-	const char* direcoes[] = {"Direita", "Esquerda", "Frente", "Tras"};
+const char* detectaMaiorDIstancia(int *array, int *valor_max){
+	const char* direcoes[] = {"Frente", "Tras", "Esquerda", "Direita"};
 
 	int indice = -1;
 
@@ -59,7 +60,7 @@ const char* direcaoMenorCaminho(int *array, int *valor_max){
 
 bool leComando(){
 	char resposta;
-
+	// aqui pergunta se o usuario quer parar com o mapeamento ou se quer continuar, se parar ele da a resposta
 	cout << "Deseja continuar o processo? (Y/N)" << endl;
 
 	cin >> resposta;
@@ -85,9 +86,9 @@ bool leComando(){
 //
 //      Complete a função com a chamada das funções já criadas
 int dirige(int *v,int maxv){
-	int maxVetor = maxv;
-	int *vetorMov = v;
-	int posAtualVetor = 0;
+	int vetor_max = maxv;
+	int *vetor_movimento = v;
+	int posicao_atual = 0;
 	int dirigindo = 1;	
 
 	while(dirigindo){
@@ -95,36 +96,49 @@ int dirige(int *v,int maxv){
 		{
 			int medida = leSensor();
 			medida = converteSensor(medida,0,830);
-			posAtualVetor = armazenaMedida(medida, posAtualVetor, vetorMov, maxv);
+			posicao_atual = armazenaMedida(medida, posicao_atual, vetor_movimento, maxv);
 		}
 				
-
+		// recebe um true ou false da função
 		dirigindo = leComando();		
 	}
-	return posAtualVetor;
+	return posicao_atual;
 }
 
 
 // O trecho abaixo irá utilizar as funções acima para ler os sensores e o movimento
 // do robô e no final percorrer o vetor e mostrar o movimento a cada direção baseado 
 // na maior distância a cada movimento
-void percorre(int *v,int tamPercorrido){		
-	int *vetorMov = v;
-	int maiorDir = 0;
+void percorre(int *v,int dist_percorrida){		
+	int *vetor_movimento = v;
+	int maior_distancia = 0;
 	
-	for(int i = 0; i< tamPercorrido; i+=4){
-		const char *direcao = direcaoMenorCaminho(&(vetorMov[i]),&maiorDir);
-		printf("Movimentando para %s distancia = %i\n",direcao,maiorDir);
+	for(int i = 0; i< dist_percorrida; i+=4){
+		const char * direcao = detectaMaiorDIstancia(&(vetor_movimento[i]),&maior_distancia);
+		//Algumas frases do cout nao tem acento pq fica estranho no terminal
+		cout << "A maior distncia e " << direcao << ", distancia: " << maior_distancia << endl;
+
 	}
+}
+// criei uma função que escreve um "tutorial" de uso
+
+void escreve(){
+	cout << "******************************" << endl;
+	cout << "** Boas vindas ao robozinho **" << endl;
+	cout << "******************************" << endl << endl;
+
+	cout << "Digite as direcoes dos sensores na sequencia: Frente, Tras, Esquerda, Direita" << endl;
+
 }
 
 int main(int argc, char** argv) {
-	int maxVetor = 100;
-	int vetorMov[maxVetor*4];
-	int posAtualVet = 0;
+	escreve();
+	int vetor_max = 100;
+	int vetor_movimento[vetor_max*4];
+	int pos_atual = 0;
 	
-	posAtualVet = dirige(vetorMov,maxVetor);
-	percorre(vetorMov,posAtualVet);
+	pos_atual = dirige(vetor_movimento,vetor_max);
+	percorre(vetor_movimento,pos_atual);
 	
 	return 0;
 }
