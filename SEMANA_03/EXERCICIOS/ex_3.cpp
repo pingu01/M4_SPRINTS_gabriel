@@ -1,16 +1,14 @@
-//exercicio feito no wokwi, por isso apresenta alguns erros
+const int LED1 = 40;
+const int LED2 = 39;
+const int LED3 = 38;
+const int LED4 = 37;
 
-const int LED1 = 34;
-const int LED2 = 13;
-const int LED3 = 21;
-const int LED4 = 15;
+const int LDR = 3;
 
-const int LDR = 25;
+const int BOTAO_SALVA = 5;
+const int BOTAO_TOCA = 18;
 
-const int BOTAO_SALVA = 12;
-const int BOTAO_TOCA = 2;
-
-const int BUZZER = 27;
+const int BUZZER = 4;
 
 int valores_lidos[100];
 
