@@ -41,12 +41,10 @@ void setup()
 
     Wire.begin(47, 48); // 47-> LCA, 48 -> LCL
 
-    // define os pinos dos leds e ligá-os
-    for (int i = 0; i < 5; i++)
-    {
-        pinMode(LED1, OUTPUT);
-        digitalWrite(LED1, HIGH);
-    }
+    // define o pino do led
+    pinMode(LED1, OUTPUT);
+    digitalWrite(LED1, HIGH);
+
 
     // tenta conectar ao wifi solicitado até conseguir
     Serial.println("Connecting to Wifi.. ");
